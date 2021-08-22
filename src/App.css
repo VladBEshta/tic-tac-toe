@@ -1,38 +1,107 @@
-.App {
-  text-align: center;
+*{
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Modal styling start*/
+.modal {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0,0,0,0.4);
+  position: fixed;
+  top: 0;
+  left:0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  transform: scale(1);
+  color: #000;
 }
+.modal.deactive {
+  transform: scale(0);
+}
+.modal-form {
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #C1CFC0;;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  width: 350px;
+  height: 280px;
+}
+.formik-error {
+  color:olive;
+  font-size: 12px;
+  text-align: right;
+  width: 100%;
+}
+.modal-form input[type='text'] {
+  width: 100%;
+  height: 46px;
+  border:none;
+  background-color: #C1CFC0;
+  border-bottom: 1px solid grey;
+  font-size: 22px;
+}
+.modal-form button {
+   width: 100%;
+   border: 1px solid black;
+   background-color: #C1CFC0;
+   height:22px ;
+   font-size: 14px;
+}
+label {
+  width: 100%;
+  text-align: left;
+}
+/* Modal styling end*/
 
-.App-link {
-  color: #61dafb;
+/* Game component styling start*/
+.game {
+  background-color: #11324D;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
 }
+/* Game component styling end*/
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Battle component styling start*/
+.battle-board {
+  width: 350px;
+  height: 350px;
+  display: grid;
+  grid-template: repeat(3, 1fr)/ repeat(3, 1fr);
 }
+/* Battle component styling end*/
+
+/* Square component styling start*/
+.square {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: 1px solid #9ba9ce;
+  cursor: pointer;
+  font-size: 84px;
+  background-color: #6B7AA1;
+}
+.square:hover {
+  background-color: #586b9c;
+}
+/* Square component styling end*/
+/* Info-panel component styling start*/
+.info-panel {
+  padding: 24px;
+  height: 420px;
+  width: 380px;
+  line-height: 2;
+  font-size: 20px;  
+}
+/* Info-panel component styling end*/
