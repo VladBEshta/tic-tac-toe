@@ -15,17 +15,36 @@ export default function Game() {
     const winner = culcWinner(board)
 
     const handleClick = i => {
-
         const newBord = [...board]
         if (winner || newBord[i]) return
         newBord[i] = xIsNext ? "X" : "O"
         setBoard(newBord)
         setXIsNext(!xIsNext)
     }
-    const newGame = () => {
-        <button onClick={() => setBoard(Array(9).fill(null))}>New Game</button>
+
+    const drawChecker = () => {
+        const newBord = [...board]
+        const isDraw = newBord.every(e => e)
+        return isDraw
     }
-    const scorer = () => {
+
+    const gameOver = () => {
+        if (winner) return <div>
+            <h3>Winner is {winner === "X"
+                ? names[0]
+                : names[1]}
+            </h3>
+            {<button onClick={() => { newGame() }}>New Game</button>}
+        </div>
+        else if (drawChecker()) return <>
+            <h3>There is no winner, try another game</h3>
+            <button onClick={() => { newGame() }}>New Game</button>
+        </>
+    }
+
+    const newGame = () => {
+        setBoard(Array(9).fill(null))
+        setXIsNext(true)
         const newScore = [...score]
         if (winner === "X") {
             newScore[0] = newScore[0] + 1
@@ -35,17 +54,23 @@ export default function Game() {
         setScore(newScore)
     }
 
-
-
     return (
         <div className='game'>
-            <BattleBoard onClick={handleClick} squares={board} />
-            <Modal active={modalActive} setActive={setModalActive} setNames={setNames} />
+            <BattleBoard
+                onClick={handleClick}
+                squares={board}
+            />
+            <Modal
+                active={modalActive}
+                setActive={setModalActive}
+                setNames={setNames}
+            />
             <InfoPanel
                 winner={winner}
                 names={names}
                 newGame={newGame}
                 score={score}
+                gameOver={gameOver}
             />
         </div>
     )
