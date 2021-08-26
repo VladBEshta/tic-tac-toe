@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../App.css'
 import BattleBoard from './BattleBoard'
-import { culcWinner } from './../helper';
+import { culcWinner, moveChecker } from './../helper';
 import Modal from './Modal';
 import InfoPanel from './InfoPanel';
 
@@ -12,7 +12,11 @@ export default function Game() {
     const [score, setScore] = useState([0, 0])
     const [board, setBoard] = useState(Array(9).fill(null))
     const [xIsNext, setXIsNext] = useState(true)
+
     const winner = culcWinner(board)
+    const checkX = moveChecker(board, "X")
+    const checkO = moveChecker(board, "O")
+    console.log(checkX, checkO)
 
     const handleClick = i => {
         const newBord = [...board]
@@ -20,26 +24,32 @@ export default function Game() {
         newBord[i] = xIsNext ? "X" : "O"
         setBoard(newBord)
         setXIsNext(!xIsNext)
+
     }
 
-    const drawChecker = () => {
+    const isDraw = () => {
         const newBord = [...board]
-        const isDraw = newBord.every(e => e)
-        return isDraw
+        return newBord.every(e => e)
     }
 
     const gameOver = () => {
+        const nextMove = xIsNext ? "X" : "O"
+        const newGameButton = <button onClick={() => { newGame() }}>New Game</button>
         if (winner) return <div>
             <h3>Winner is {winner === "X"
                 ? names[0]
                 : names[1]}
             </h3>
-            {<button onClick={() => { newGame() }}>New Game</button>}
+            {newGameButton}
         </div>
-        else if (drawChecker()) return <>
-            <h3>There is no winner, try another game</h3>
-            <button onClick={() => { newGame() }}>New Game</button>
+        else if (isDraw() || (checkO && checkX)) return <>
+            <h3>There is no winner, try again</h3>
+            {newGameButton}
         </>
+        return (
+            <h3>
+                Next is: {nextMove}
+            </h3>)
     }
 
     const newGame = () => {
