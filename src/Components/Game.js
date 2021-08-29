@@ -14,22 +14,21 @@ export default function Game() {
     const [xIsNext, setXIsNext] = useState(true)
 
     const winner = culcWinner(board)
-    const checkX = moveChecker(board, "X")
-    const checkO = moveChecker(board, "O")
-    console.log(checkO, checkX)
+    const canWinX = moveChecker(board, "X")
+    const canWinO = moveChecker(board, "O")
+
+    const isDraw = () => {
+        const newBord = [...board]
+        return newBord.every(e => e) || (!canWinX && !canWinO)
+    }
 
     const handleClick = i => {
         const newBord = [...board]
-        if (winner || newBord[i] || (!checkO && !checkX)) return
+        if (winner || newBord[i] || isDraw()) return
         newBord[i] = xIsNext ? "X" : "O"
         setBoard(newBord)
         setXIsNext(!xIsNext)
 
-    }
-
-    const isDraw = () => {
-        const newBord = [...board]
-        return newBord.every(e => e)
     }
 
     const gameOver = () => {
@@ -42,7 +41,7 @@ export default function Game() {
             </h3>
             {newGameButton}
         </div>
-        else if (isDraw() || (!checkO && !checkX)) return <>
+        else if (isDraw()) return <>
             <h3>There is no winner, try again</h3>
             {newGameButton}
         </>
