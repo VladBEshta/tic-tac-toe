@@ -28,19 +28,21 @@ export function moveChecker(squares, player) {
 
         const [a, b, c] = patterns[i];
 
-        if (
-            ((squares[a] === null || squares[a] === player)
-                && (squares[b] === null || squares[b] === player)
-                && (squares[c] === null || squares[c] === player))
+        if (((squares[a] === null || squares[a] === player)
+            && (squares[b] === null || squares[b] === player)
+            && (squares[c] === null || squares[c] === player))
             && !(movesLeft.length === 3 && squares[a] === null && squares[b] === null && squares[c] === null)
             && (movesLeft.length >= 3 || (
                 (squares[a] === squares[b] && squares[c] === null)
                 || (squares[a] === squares[c] && squares[b] === null)
-                || (squares[b] === squares[c] && squares[a] === null))
-            )
+                || (squares[b] === squares[c] && squares[a] === null)))
+            && (movesLeft.length > 1 || (
+                (squares[a] === squares[b] === "O" && squares[c] === null)
+                || (squares[a] === squares[c] === "O" && squares[b] === null)
+                || (squares[b] === squares[c] === "O" && squares[a] === null)))
         )
-            return false
+            return true
 
     }
-    return true
+    return false
 }

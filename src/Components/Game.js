@@ -16,6 +16,7 @@ export default function Game() {
     const winner = culcWinner(board)
     const checkX = moveChecker(board, "X")
     const checkO = moveChecker(board, "O")
+    console.log(checkO, checkX)
 
     const handleClick = i => {
         const newBord = [...board]
@@ -41,7 +42,7 @@ export default function Game() {
             </h3>
             {newGameButton}
         </div>
-        else if (isDraw() || (checkO && checkX)) return <>
+        else if (isDraw() || (!checkO && !checkX)) return <>
             <h3>There is no winner, try again</h3>
             {newGameButton}
         </>
