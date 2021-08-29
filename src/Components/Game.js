@@ -16,11 +16,10 @@ export default function Game() {
     const winner = culcWinner(board)
     const checkX = moveChecker(board, "X")
     const checkO = moveChecker(board, "O")
-    console.log(checkX, checkO)
 
     const handleClick = i => {
         const newBord = [...board]
-        if (winner || newBord[i]) return
+        if (winner || newBord[i] || (!checkO && !checkX)) return
         newBord[i] = xIsNext ? "X" : "O"
         setBoard(newBord)
         setXIsNext(!xIsNext)
